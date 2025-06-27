@@ -30,11 +30,11 @@ class Dropdown(BaseComponent):
         
         return selector
     
-    def outer_div(self, child):
+    def outer_div(self, component):
 
         return Div(
             Label(self.label, _for=self.id),
-            child,
+            component,
             id=self.id,
         )
     
