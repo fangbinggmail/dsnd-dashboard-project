@@ -70,7 +70,7 @@ class QueryBase(QueryMixin):
         query = f"""
             SELECT note_date, note
             FROM notes
-            WHERE id = {id}
+            WHERE {self.name}_id = {id}
             ORDER BY note_date;
         """
 

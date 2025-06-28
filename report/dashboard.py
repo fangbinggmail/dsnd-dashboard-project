@@ -30,19 +30,29 @@ class ReportDropdown(Dropdown):
     # Overwrite the build_component method
     # ensuring it has the same parameters
     # as the Report parent class's method
-    def build_component(self, model: QueryBase, **kwargs):  # type: ignore
+    def build_component(
+        self,
+        entity_id,
+        model: QueryBase,
+        **kwargs
+    ):
         #  Set the `label` attribute so it is set
         #  to the `name` attribute for the model
         self.label = model.name
 
         # Return the output from the
         # parent class's build_component method
-        return super().build_component(model, **kwargs)
+        return super().build_component(entity_id, model, **kwargs)
 
     # Overwrite the `component_data` method
     # Ensure the method uses the same parameters
     # as the parent class method
-    def component_data(self, model: QueryBase, **kwargs):  # type: ignore
+    def component_data(
+        self,
+        entity_id,
+        model: QueryBase,
+        **kwargs
+    ):
         # Using the model argument
         # call the employee_events method
         # that returns the user-type's
@@ -61,7 +71,12 @@ class Header(BaseComponent):
     # Overwrite the `build_component` method
     # Ensure the method has the same parameters
     # as the parent class
-    def build_component(self, model: QueryBase, **kwargs):  # type: ignore
+    def build_component(
+        self,
+        entity_id,
+        model: QueryBase,
+        **kwargs
+    ):
 
         # Using the model argument for this method
         # return a fasthtml H1 objects

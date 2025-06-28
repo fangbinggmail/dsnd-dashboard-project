@@ -78,6 +78,22 @@ def employee_event_counts(db_conn):
     return [(row[0], row[1], row[2]) for row in result]
 
 
+# Define test fixtures for the team notes
+@pytest.fixture
+def team_notes(db_conn):
+    # Execute a query to get all team notes
+    query = """
+        SELECT note_date, note
+        FROM notes
+        WHERE team_id = 1
+        ORDER BY note_date;
+    """
+    result = db_conn.execute(query).fetchall()
+
+    # Return a list of tuples with note date and note text
+    return [(row[0], row[1]) for row in result]
+
+
 # Define a test function called
 # `test_employee_table_exists`
 # This function should receive the `table_names`
@@ -162,3 +178,26 @@ def test_employee_event_counts(db_conn, employee_event_counts):
     # Assert that the data in the result matches the event_counts fixture
     for idx, row in enumerate(result.itertuples(index=False)):
         assert (row.event_date, row.positive_events, row.negative_events) == employee_event_counts[idx], f"Row {idx} does not match expected values."  # noqa: E501
+
+
+# Define a test function for team notes
+def test_team_notes(db_conn, team_notes):
+    from employee_events.team import Team
+
+    # Create an instance of the Team class
+    team = Team()
+
+    # Call the notes method with id 1
+    result = team.notes(1)
+    print("Team notes for team with id 1:\n", result)
+
+    # Assert that the result is a pandas DataFrame
+    assert isinstance(result, pd.DataFrame), "The result is not a pandas DataFrame."  # noqa: E501
+
+    # Assert that the number of rows in the result matches the length of
+    # team_notes fixture
+    assert len(result) == len(team_notes), "The number of rows in the result does not match the expected count."  # noqa: E501
+
+    # Assert that the data in the result matches the team_notes fixture
+    for idx, row in enumerate(result.itertuples(index=False)):
+        assert (row.note_date, row.note) == team_notes[idx], f"Row {idx} does not match expected values."  # noqa: E501
