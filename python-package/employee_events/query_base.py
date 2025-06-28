@@ -1,11 +1,11 @@
 # Import any dependencies needed to execute sql queries
-import pandas as pd
-from pathlib import Path
-import numpy as np
-import random, pickle, json
-from sqlite3 import connect
-from datetime import timedelta, date
+import pandas as pd  # noqa: F401
+import numpy as np  # noqa: F401
+import random, pickle, json  # noqa: E401, F401
+from sqlite3 import connect  # noqa: F401
+from datetime import timedelta, date  # noqa: F401
 from employee_events.sql_execution import QueryMixin
+
 
 # Define a class called QueryBase
 # Use inheritance to add methods
@@ -19,10 +19,9 @@ class QueryBase(QueryMixin):
     # Define a `names` method that receives
     # no passed arguments
     def names(self):
-        
+
         # Return an empty list
         return []
-
 
     def model_data(self, id):
         raise NotImplementedError(
@@ -56,7 +55,6 @@ class QueryBase(QueryMixin):
         # Return the result of the pandas_query method
         return self.pandas_query(query)
 
-
     # Define a `notes` method that receives an id argument
     # This function should return a pandas dataframe
     def notes(self, id):
@@ -77,4 +75,3 @@ class QueryBase(QueryMixin):
 
         # Return the result of the pandas_query method
         return self.pandas_query(query)
-

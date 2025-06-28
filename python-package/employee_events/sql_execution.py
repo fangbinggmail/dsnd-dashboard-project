@@ -5,13 +5,14 @@ import pandas as pd
 
 # Using pathlib, create a `db_path` variable
 # that points to the absolute path for the `employee_events.db` file
-db_path = Path(__file__).resolve().parent.parent / 'employee_events' / 'employee_events.db'
+db_path = Path(__file__).resolve().parent.parent / 'employee_events'
+db_path = db_path / 'employee_events.db'
 
 
 # OPTION 1: MIXIN
 # Define a class called `QueryMixin`
 class QueryMixin:
-    
+
     # Define a method named `pandas_query`
     # that receives an sql query as a string
     # and returns the query's result
@@ -42,8 +43,9 @@ class QueryMixin:
         connection.close()
 
         return result
- 
- # Leave this code unchanged
+
+
+# Leave this code unchanged
 def query(func):
     """
     Decorator that runs a standard sql execution
@@ -58,5 +60,5 @@ def query(func):
         result = cursor.execute(query_string).fetchall()
         connection.close()
         return result
-    
+
     return run_query
