@@ -10,6 +10,7 @@ from employee_events.sql_execution import QueryMixin
 # Define a class called QueryBase
 # Use inheritance to add methods
 # for querying the employee_events database.
+# Need the QueryMixin to execute SQL queries for notes and event_counts
 class QueryBase(QueryMixin):
 
     # Create a class attribute called `name`
