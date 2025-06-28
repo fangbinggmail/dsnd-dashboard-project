@@ -1,5 +1,6 @@
 from fasthtml.common import * # type: ignore
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Import QueryBase, Employee, Team from employee_events
 from employee_events import QueryBase, Employee, Team
@@ -160,21 +161,21 @@ class BarChart(MatplotlibViz):
         
         # Index the second column of predict_proba output
         # The shape should be (<number of records>, 1)
-        predict_proba = predict_proba.squeeze()
         
         # Below, create a `pred` variable set to
         # the number we want to visualize
         #
         # If the model's name attribute is "team"
         # We want to visualize the mean of the predict_proba output
-        if model.name == 'team':
-            pred = predict_proba.mean()
-        else:
-            pred = predict_proba[0]
             
         # Otherwise set `pred` to the first value
         # of the predict_proba output
         #### YOUR CODE HERE
+        # We'll take the column wise mean of the predictions
+        # to get the average prediction for the team
+        # or employee. If Employee, there is only 1 row and mean of a 
+        # single number is the number itself.
+        pred = np.mean(predict_proba, axis=0)[0]
         
         # Initialize a matplotlib subplot
         fig, ax = plt.subplots(figsize=(5, 2))
